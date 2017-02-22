@@ -47,6 +47,7 @@ wait_port 58846
 /usr/bin/deluge-console --config /mnt/deluge/config config --set move_completed True
 /usr/bin/deluge-console --config /mnt/deluge/config config --set torrentfiles_location /mnt/deluge/data/torrents/default
 /usr/bin/deluge-console --config /mnt/deluge/config config --set listen_ports '(41250, 41259)'
+/usr/bin/deluge-console --config /mnt/deluge/config config --set random_port False
 /usr/bin/deluge-console --config /mnt/deluge/config config --set stop_seed_at_ratio True
 /usr/bin/deluge-console --config /mnt/deluge/config plugin --enable AutoAdd
 /usr/bin/deluge-console --config /mnt/deluge/config plugin --enable Execute
