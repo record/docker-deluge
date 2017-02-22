@@ -53,6 +53,7 @@ wait_port 58846
 /usr/bin/deluge-console --config /mnt/deluge/config plugin --enable Label
 
 wait_proc $DELUGED_PID "deluged"
+echo "deluge:deluge:10" >> /mnt/deluge/config/deluge/auth
 
 /usr/bin/deluge-web --config /mnt/deluge/config &
 wait_port 8112
