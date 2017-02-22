@@ -61,3 +61,4 @@ wait_port 8112
 wait_proc $! "deluge-web"
 
 sed -i 's/"https"\([ ]*\):\([ ]*\)false\([ ]*\)/"https"\1:\2true\3/' /mnt/deluge/config/web.conf
+sed -i 's/"default_daemon"\([ ]*\):\([ ]*\)""\([ ]*\)/"https"\1:\2"127.0.0.1:58846"\3/' /mnt/deluge/config/web.conf
