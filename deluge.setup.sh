@@ -32,6 +32,11 @@ wait_proc () {
     exit 1
 }
 
+if [ -d /mnt/deluge/config ]; then
+    echo "deluge config found, skip setup"
+    exit 0
+fi
+
 mkdir -p /mnt/deluge/config
 mkdir -p /mnt/deluge/data/completes/default
 mkdir -p /mnt/deluge/data/downloads/default
