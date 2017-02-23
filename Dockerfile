@@ -62,10 +62,10 @@ RUN apk add --no-cache \
 
 RUN apk add --no-cache netcat-openbsd
 ADD supervisor.deluge.ini /etc/supervisor.d/deluge.ini
-ADD deluge.setup.sh deluge.run.sh /
+ADD deluge.setup.sh /
 
 EXPOSE 58846 8112
 EXPOSE 41250-41259/tcp
 EXPOSE 41250-41259/udp
 
-ENTRYPOINT ["/bin/sh", "/deluge.run.sh"]
+ENTRYPOINT ["/bin/sh", "-c", "set -e; /deluge.setup.sh && exec /usr/bin/supervisord -n"]
