@@ -3,7 +3,7 @@
 set -e
 
 wait_port () {
-    for i in 1 2 3 4 5
+    for i in 1 2 3 4 5 6 7 8 9 10 1 2 3 4 5 6 7 8 9 10
     do
         if nc -z 127.0.0.1 $1; then
             return 0
@@ -19,7 +19,7 @@ wait_port () {
 wait_proc () {
     kill -TERM $1
 
-    for i in 1 2 3 4 5
+    for i in 1 2 3 4 5 6 7 8 9 10 1 2 3 4 5 6 7 8 9 10
     do
         if ! ps | grep "$2" | grep $1 1>/dev/null; then
             return 0
