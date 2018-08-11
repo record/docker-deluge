@@ -1,8 +1,8 @@
-FROM alpine:3.5
+FROM alpine:3.8
 
-ARG LIBTORRENT_VERSION=1.0.11
-ARG LIBTORRENT_VERSION_UNDERSCORE=1_0_11
-ARG DELUGE_VERSION=1.3.13
+ARG LIBTORRENT_VERSION=1.1.9
+ARG LIBTORRENT_VERSION_UNDERSCORE=1_1_9
+ARG DELUGE_VERSION=1.3.15
 
 ENV LANG=C.UTF-8
 
@@ -16,6 +16,7 @@ RUN apk add --no-cache \
         libjpeg-turbo \
         libstdc++ \
         openssl \
+        netcat-openbsd \
         py2-pip \
         python2 \
         supervisor \
@@ -37,19 +38,19 @@ RUN apk add --no-cache \
         wget \
         zlib-dev && \
     pip --no-cache-dir install \
-        chardet==2.3.0 \
-        Mako==1.0.6 \
-        Pillow==4.0.0 \
-        pyOpenSSL==16.2.0 \
+        chardet==3.0.4 \
+        Mako==1.0.7 \
+        Pillow==5.2.0 \
+        pyOpenSSL==18.0.0 \
         python-geoip==1.2 \
-        pyxdg==0.25 \
-        service-identity==16.0.0 \
+        pyxdg==0.26 \
+        service-identity==17.0.0 \
         setproctitle==1.1.10 \
-        Twisted==17.1.0 && \
+        Twisted==18.7.0 && \
     ( \
         wget --quiet -O /tmp/libtorrent-rasterbar-$LIBTORRENT_VERSION.tar.gz https://github.com/arvidn/libtorrent/releases/download/libtorrent-$LIBTORRENT_VERSION_UNDERSCORE/libtorrent-rasterbar-$LIBTORRENT_VERSION.tar.gz && \
         tar -xf /tmp/libtorrent-rasterbar-$LIBTORRENT_VERSION.tar.gz -C /tmp && \
-        (cd /tmp/libtorrent-rasterbar-$LIBTORRENT_VERSION && ./configure --with-libiconv --enable-python-binding --prefix=/usr && make && make install) 1>/dev/null 2>&1 && \
+        (cd /tmp/libtorrent-rasterbar-$LIBTORRENT_VERSION && ./configure --with-libiconv --enable-python-binding --prefix=/usr && make && make install) && \
         rm -rf /tmp/libtorrent-rasterbar-$LIBTORRENT_VERSION.tar.gz /tmp/libtorrent-rasterbar-$LIBTORRENT_VERSION \
     ) && \
     ( \
@@ -60,7 +61,6 @@ RUN apk add --no-cache \
     ) && \
     apk del .build-deps
 
-RUN apk add --no-cache netcat-openbsd
 ADD supervisor.deluge.ini /etc/supervisor.d/deluge.ini
 ADD deluge.setup.sh /
 
